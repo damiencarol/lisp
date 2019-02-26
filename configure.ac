@@ -1,9 +1,8 @@
 AC_INIT([lisp], [1.0])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign -Wall -Werror])
 AC_PROG_CC
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile])
-AC_OUTPUT
+AC_CONFIG_FILES([Makefile src/Makefile])
 
 AC_CHECK_FUNCS([memset]) # wanted by: src/mpc.c:127
 AC_CHECK_FUNCS([strchr]) # wanted by: src/mpc.c:503
@@ -16,3 +15,4 @@ AC_FUNC_REALLOC # wanted by: src/mpc.c:274
 AC_FUNC_STRTOD # wanted by: src/mpc.c:2442
 AC_TYPE_SIZE_T # wanted by: src/mpc.h:69
 
+AC_OUTPUT
