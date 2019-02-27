@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.9)
 
 add_library(mpc STATIC src/mpc.c)
 add_executable(lisp src/main.c)
