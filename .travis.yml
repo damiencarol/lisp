@@ -1,6 +1,9 @@
 sudo: false
 language: c
-
+addons:
+  apt:
+    packages:
+      -  libreadline-dev
 before_install:
   - wget -N "https://raw.githubusercontent.com/orangeduck/mpc/master/mpc.c" -O "src/mpc.c"
   - wget -N "https://raw.githubusercontent.com/orangeduck/mpc/master/mpc.h" -O "src/mpc.h"
