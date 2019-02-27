@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include "mpc.h"
 
 #ifdef _WIN32
@@ -29,7 +30,7 @@ long eval_op(long x, char* op, long y) {
   if (strcmp(op, "-") == 0) { return x - y; }
   if (strcmp(op, "*") == 0) { return x * y; }
   if (strcmp(op, "/") == 0) { return x / y; }
-  if (strcmp(op, "\%") == 0) { return x % y; }
+  if (strcmp(op, "max") == 0) { return MAX( x , y ) ; }
   if (strcmp(op, "min") == 0) { return MIN( x , y ) ; }
   return 0;
 }
@@ -63,13 +64,13 @@ int main(int argc, char** argv) {
   mpc_parser_t* Number   = mpc_new("number");
   mpc_parser_t* Operator = mpc_new("operator");
   mpc_parser_t* Expr     = mpc_new("expr");
-  mpc_parser_t* Lisp    = mpc_new("lisp");
+  mpc_parser_t* Lisp     = mpc_new("lisp");
   
   /* Define them with the following Language */
   mpca_lang(MPCA_LANG_DEFAULT,
     "                                                     \
       number   : /-?[0-9]+/ ;                             \
-      operator : '+' | '-' | '*' | '/' | '\%' | 'min' ;     \
+      operator : '+' | '-' | '*' | '/'  ;  \
       expr     : <number> | '(' <operator> <expr>+ ')' ;  \
       lisp     : /^/ <operator> <expr>+ /$/ ;             \
     ",
@@ -94,6 +95,7 @@ int main(int argc, char** argv) {
       mpc_ast_print(r.output);
       mpc_ast_delete(r.output);
     } else {
+      printf("ERROR: ");
       /* Otherwise print and delete the Error */
       mpc_err_print(r.error);
       mpc_err_delete(r.error);
